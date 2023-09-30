@@ -80,9 +80,9 @@ class _HomeScreenState extends State<HomeScreen> {
     });
 
   }
-
   @override
   Widget build(BuildContext context) {
+    widget.isAdmin= true;
 
     final widthM = MediaQuery.of(context).size.width;
 
@@ -2069,15 +2069,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                                       height: Get.height * 0.05,
                                                                                     ),
                                                                                     GestureDetector(
-                                                                                      onTap: () {
+                                                                                      onTap: ()async {
                                                                                         if (widget.isAdmin!) {
                                                                                           setState(() {
 
                                                                                             if( imagesPath.isNotEmpty){
 
-                                                                                              imagesPath.forEach((element) async {
-                                                                                                await homeController.uploadImage(element);
-                                                                                              });
+                                                                                              // imagesPath.forEach((element) async {
+                                                                                                 homeController.uploadImage(imagesPath);
+                                                                                              // });
 
                                                                                               // homeController.uploadImage(imageFile!.bytes!,);
                                                                                               homeController.isUploaded = true;
@@ -2226,9 +2226,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                                   itemCount: snapshot.data?.docs[index]['image'].length ?? 0,
                                                                                   // itemCount: 10,
                                                                                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                                                                    crossAxisCount: sizingInformation.isDesktop || sizingInformation.isTablet ? 3 : 2,
-                                                                                    crossAxisSpacing: sizingInformation.isDesktop ? Get.height * 0.06 : height * 0.02,
-                                                                                    mainAxisSpacing: sizingInformation.isDesktop ? Get.height * 0.06 : height * 0.02,
+                                                                                    crossAxisCount: 3,
+                                                                                    crossAxisSpacing:  Get.width > 1500 ?Get.width * 0.04 : Get.width * 0.02,
+                                                                                    mainAxisSpacing:  Get.width > 1500 ?Get.width * 0.04 : Get.width * 0.02,
                                                                                     childAspectRatio: 5 / 3,
                                                                                   ),
                                                                                   itemBuilder: (BuildContext context, int ind) {
