@@ -15,6 +15,7 @@ class HomeController extends GetxController {
   bool isUploaded = false;
   String category = '4k Wallpaper';
 
+
   String selectedCategory = '';
   int lengthOfImage = 0;
   bool loader = false;
@@ -60,30 +61,49 @@ class HomeController extends GetxController {
     await categoryCollection.doc(id).update({'image': images});
   }
 
-  Future uploadImage(Uint8List image) async {
-    final uniqueImageName = uuid.v4();
+  Future uploadImage(List image) async {
+loader = true ;
+update(['home']);
+
+var list = [];
+
     downloadUrlList.clear();
     var listData = [];
-    categoryCollection.doc(selectedCategory).get().then((value) async {
-      listData = await value.get('image');
+   await  categoryCollection.doc(selectedCategory).get().then((value) async {
+      listData =  value.get('image');
     });
+    print(listData);
     try {
-      Reference storageRef =
-          FirebaseStorage.instance.ref().child('images/$uniqueImageName');
-      UploadTask uploadTask = storageRef.putData(image);
-
-      String imageUrl;
-      final snapshot = await uploadTask;
-      imageUrl = await snapshot.ref.getDownloadURL();
-
       downloadUrlList.addAll(listData);
-      downloadUrlList.add({
-        'imageLink': imageUrl,
-        'isFav': false,
-      });
-      await onTapCategoryEdit(category, selectedCategory, downloadUrlList);
+
+for(int i =0 ; i < image.length; i++){
+  final uniqueImageName = uuid.v4();
+  Reference storageRef =
+  FirebaseStorage.instance.ref().child('images/$uniqueImageName');
+  UploadTask uploadTask = storageRef.putData(image[i]);
+  String imageUrl;
+  final snapshot = await uploadTask;
+  imageUrl = await snapshot.ref.getDownloadURL();
+print(imageUrl);
+
+list.add(imageUrl);
+
+
+}
+for(int i = 0;i< list.length; i++  ){
+  downloadUrlList.add({
+
+    'imageLink' : list[i],
+    'isFav': false,
+  });
+}
+
     } catch (error) {
       return;
     }
+    await onTapCategoryEdit(category, selectedCategory, downloadUrlList);
+    loader = false ;
+    update(['home']);
+
   }
 }
