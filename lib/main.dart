@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wallpaper/screens/admin_page/admin_panel.dart';
 
-
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
