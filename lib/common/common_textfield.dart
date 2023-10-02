@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CommonTextField extends StatelessWidget {
   final Widget child;
@@ -18,8 +19,8 @@ class CommonTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
-      style: const TextStyle(
-          fontSize: 17, fontWeight: FontWeight.w300, color: Colors.white,fontFamily: "sfPro"),
+      style:  TextStyle(
+          fontSize:  Get.height > 650 ? 20 : 15, fontWeight: FontWeight.w300, color: Colors.white,fontFamily: "sfPro",letterSpacing: 1),
       onChanged: (value) {
         if (onChange != null) {
           onChange!(value) ?? () {};
@@ -31,7 +32,7 @@ class CommonTextField extends StatelessWidget {
         hintText: hintText,
         hintStyle:  TextStyle(
             color: Colors.white.withOpacity(0.55),
-            fontSize: 20,
+            fontSize: Get.height > 650 ? 20 : 15,
             height: 2,
             fontWeight: FontWeight.w200,letterSpacing: 2),
         prefixIcon: child,

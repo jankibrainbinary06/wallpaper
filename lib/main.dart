@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:wallpaper/screens/admin_page/admin_panel.dart';
 import 'package:wallpaper/screens/home_page/home_screen.dart';
 
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       scrollBehavior: MyCustomScrollBehavior(),
       debugShowCheckedModeBanner: false,
-      home:    HomeScreen(),
+      home:     const AdminPanelScreen(),
     );
   }
 }
